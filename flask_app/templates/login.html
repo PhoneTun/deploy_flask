@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2> Coding Dojo Wall</h2>
+    <hr>
+    <section id="container">
+        <div class="container2">
+            {% with messages = get_flashed_messages(category_filter=['register']) %}
+                <div class="flash_error">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="error">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endwith %}
+            {% with messages = get_flashed_messages(category_filter=['success']) %}
+                <div class="flash_success">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p class="error">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endwith %}
+
+            <h1 class="Register">Register</h1>
+            <form action="/register" method="Post">
+                <input type="hidden" name="id">
+                <label for="first_name">First Name: </label>
+                <input type="text" name="first_name" placeholder="First Name HERE">
+                <br>
+                <label for="lname">Last Name:</label>
+                <input type="text" name="last_name" placeholder="Last Name HERE">
+                <br>
+                <label for="email">Email:</label>
+                <input type="text" name="email" placeholder="Email HERE" >
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" name="password" placeholder="*****" autocomplete="off">
+                <br>
+                <label for="Rpassword">Confirm Password:</label>
+                <input type="password" name="Rpassword" placeholder="*****" autocomplete="off">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div class="container2">
+            <h1 class="Login">Login</h1>
+            {% with messages = get_flashed_messages(category_filter=['login']) %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <p class="error">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/login" method="Post">
+                <label for="email">Email:</label>
+                <input type="text" name="email" placeholder="Email HERE" >
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" name="password" placeholder="*****">
+                <br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </section>
+</body>
+</html>

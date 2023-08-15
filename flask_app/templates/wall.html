@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes share</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="nav">
+        <h1>Sosquatch Websighting</h1>
+        <div class="row2">
+            <h2>{{user.first_name}} {{user.last_name}}</h2>
+            <h3> All posted recipes:</h3>
+            <a href="/new/sighting">Report a Sighting</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </div>
+    <h3>Reported Sightings</h3>
+    <div class="container">
+        {% for sighting in sightings %}
+        
+        
+        
+        <div class="each_sightings">
+            <div class="skeptics">
+                <h4>Skeptics</h4>
+                <h4>{{ sighting.get_skeptics_for_sighting(sighting.id)|length }}</h4>
+            </div>
+            <div class="left">
+                <h4>{{sighting.location}}-{{sighting.date_of_siting.strftime("%x")}}</h4>
+                <h4>Reported by: {{sighting.user.first_name}} {{sighting.user.last_name}}</h4>
+            </div>
+            <div class="edit">
+                {% if sighting.user.id==user.id %}<h4><a href="/new/edit/{{sighting.id}}">edit</a>{% endif %}       <a href="/show/{{sighting.id}}">view</a>       {% if sighting.user.id==user.id %}<a href="/sight/delete/{{sighting.id}}">delete</a></td></h4>{% endif %}
+            </div>   
+        </div>
+        <hr>
+        {% endfor%}
+        
+    </div>
+
+</body>
+</html>

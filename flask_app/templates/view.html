@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes share</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="nav">
+        <h1>Sosquatch Websighting</h1>
+        <div class="row2">
+            <h2>{{user.first_name}} {{user.last_name}}</h2>
+            <h3> All posted recipes:</h3>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </div>
+    <div class="left-view">
+        <h1> {{sight.location}} on {{sight.date_of_siting.strftime("%B %d %Y")}}</h1>
+        <h3>What Happened:</h3>
+        <h3>{{sight.what_happen}}</h3>
+        <h3># of Sasquatches: {{sight.no_of_sasquatchs}}</h3>
+        <h3>Reported By: {{sight.user.first_name}} {{sight.user.last_name}}</h3>
+    </div>
+    <div class="right-view">
+        <h3>Skeptics:</h3>
+
+        {% for skeptic in skeptics %}
+        <h3>{{ skeptic.first_name }} {{ skeptic.last_name }}</h3>
+        {% endfor %}
+        
+        {% if user.id in skeptic_ids %}
+        <form method="post" action="/remove_skeptic/{{ sight.id }}">
+            <input type="submit" value="Believe it">
+        </form>
+        
+        {%else %}
+        <form method="post" action="/add_skeptic/{{ sight.id }}">
+            <input type="submit" value="I am skeptical">
+        </form>
+        {% endif %}
+
+    </div>
+    </div>
+</body>
+</html>

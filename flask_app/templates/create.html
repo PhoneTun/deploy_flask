@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes share</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="nav">
+        <h1>Sosquatch Websighting</h1>
+        <div class="row2">
+            <h2>{{user.first_name}} {{user.last_name}}</h2>
+            <h3> All posted recipes:</h3>
+            <a href="/dashboard">Dashboard</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </div>
+    {% with messages = get_flashed_messages(category_filter=['create']) %}
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <h3>Report a Sighting</h3>
+    <form action="/sightings/new" method="Post">
+        <label for="location">Location:     </label>
+        <input type="text" name="location" placeholder="location HERE" >
+        <br>
+        <label for="what_happen">What Happened:     </label>
+        <textarea name="what_happen" cols="30" rows="3" placeholder="Enter text here"></textarea>
+        <br>
+        <label for="date_of_siting">Date of Siting:     </label>
+        <input type="date" name="date_of_siting">
+        <br>
+        <label for="no_of_sasquatchs"># of Sasquatchs:     </label>
+        <input type="number" name="no_of_sasquatchs" >
+        <br>
+        <input type="hidden" name="user_id" value="{{ user.id  }}" >
+        <input type="submit" value="Report">
+        <br>
+</body>
+</html>
